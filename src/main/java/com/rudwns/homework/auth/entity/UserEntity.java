@@ -3,12 +3,13 @@ package com.rudwns.homework.auth.entity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 
 public class UserEntity {
     @Id
