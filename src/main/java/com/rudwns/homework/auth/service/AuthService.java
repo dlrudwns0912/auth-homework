@@ -1,7 +1,7 @@
 package com.rudwns.homework.auth.service;
 
 import com.rudwns.homework.auth.dto.request.SignupRequest;
-import com.rudwns.homework.auth.entity.Role;
+import com.rudwns.homework.auth.entity.UserRole;
 import com.rudwns.homework.auth.entity.UserEntity;
 import com.rudwns.homework.auth.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
 
 
@@ -30,9 +29,11 @@ public class AuthService {
         UserEntity userEntity = UserEntity.builder()
                 .email(request.getEmail())
                 .pw(encodedPassword)
-                .role(Role.USER)
+                .role(UserRole.USER)
                 .build();
 
         userRepository.save(userEntity);
     }
+
+    
 }

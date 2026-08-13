@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Getter @Setter
+
 public class SignupRequest {
     private String email;
     private String pw;
