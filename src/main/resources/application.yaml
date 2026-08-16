@@ -2,19 +2,19 @@ spring:
   application:
     name: homework
 
-  # h2 임시 데이터베이스 연결
+  # H2 DB 설정
   datasource:
     url: jdbc:h2:mem:testdb;MODE=MySQL
     driver-class-name: org.h2.Driver
     username: lkj
     password:
 
-  # DB 콘솔창
+  # H2 콘솔 설정
   h2:
     console:
       enabled: true
 
-
+  # JPA 설정
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -23,6 +23,7 @@ spring:
       hibernate:
         format_sql: true
 
-  jwt:
-    secret: mysecretkeymysecretkeymysecretkey1234567890 # JWT 토큰 위조 방지용
-    expiration: 3600000 # 토크 유효시간 (ms)
+# JWT 설정
+jwt:
+  secret: mysecretkeymysecretkeymysecretkey1234567890
+  expiration: 3600000

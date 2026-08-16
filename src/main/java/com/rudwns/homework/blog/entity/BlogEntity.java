@@ -12,12 +12,10 @@ public class BlogEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String content;
-
     private String authorEmail;
 
     public BlogEntity(String title, String content, String authorEmail) {

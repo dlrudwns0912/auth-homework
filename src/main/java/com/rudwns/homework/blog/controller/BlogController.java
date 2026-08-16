@@ -13,28 +13,23 @@ import java.util.List;
 @RequestMapping("/api/blogs")
 @RequiredArgsConstructor
 public class BlogController {
-
     private final BlogService blogService;
 
-    // 글 생성 (JWT 인증 필요)
     @PostMapping
     public BlogResponse createBlog(@RequestBody BlogRequest req, Authentication auth) {
         return blogService.createBlog(req, auth.getName());
     }
 
-    // 전체 목록 조회
     @GetMapping
     public List<BlogResponse> getAllBlogs() {
         return blogService.getAllBlogs();
     }
 
-    // 단건 조회
     @GetMapping("/{id}")
     public BlogResponse getBlog(@PathVariable Long id) {
         return blogService.getBlog(id);
     }
 
-    // 글 수정 (본인 확인)
     @PutMapping("/{id}")
     public BlogResponse updateBlog(
             @PathVariable Long id,
@@ -44,7 +39,6 @@ public class BlogController {
         return blogService.updateBlog(id, req, auth.getName());
     }
 
-    // 글 삭제 (본인 확인)
     @DeleteMapping("/{id}")
     public String deleteBlog(@PathVariable Long id, Authentication auth) {
         blogService.deleteBlog(id, auth.getName());
