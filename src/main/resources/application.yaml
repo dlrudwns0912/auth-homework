@@ -1,29 +1,24 @@
 spring:
-  application:
-    name: homework
-
-  # H2 DB 설정
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MySQL
-    driver-class-name: org.h2.Driver
-    username: lkj
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 3306 뒤의 blog1은 쿼리에서 권한을 준 DB 이름입니다.
+    url: ${jdbc:mysql://localhost:3306/My_DB?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true}
+    username: ${lkj0912}
+    password: ${jun100912*}
 
-  # H2 콘솔 설정
-  h2:
-    console:
-      enabled: true
 
   # JPA 설정
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
 
 # JWT 설정
 jwt:
-  secret: mysecretkeymysecretkeymysecretkey1234567890
+  secret: ${mysecretkeymysecretkeymysecretkey1234567890}
   expiration: 3600000
