@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class BlogService {
 
     private final BlogRepository blogRepository;
@@ -23,12 +22,14 @@ public class BlogService {
         return new BlogResponse(blogRepository.save(blog));
     }
 
+    @Transactional(readOnly = true)
     public List<BlogResponse> getAllBlogs() {
         return blogRepository.findAll().stream()
                 .map(BlogResponse::new)
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public BlogResponse getBlog(Long id) {
         BlogEntity blog = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
