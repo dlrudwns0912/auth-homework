@@ -12,7 +12,7 @@ import java.util.Date;
 public class JwtProvider {
 
     private final String SECRET_KEY = "simple-jwt-secret-key-for-beginner-homework";
-    private final long EXPIRATION = 1000 * 60 * 60 * 24;
+    private final long EXPIRATION = 360000;
 
     private SecretKey getKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
