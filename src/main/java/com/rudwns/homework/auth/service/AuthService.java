@@ -27,11 +27,11 @@ public class AuthService {
             throw new RuntimeException("이미 존재하는 이메일입니다.");
         }
 
-        String encodedPassword = passwordEncoder.encode(request.getPw());
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
 
         UserEntity userEntity = UserEntity.builder()
                 .email(request.getEmail())
-                .pw(encodedPassword)
+                .password(encodedPassword)
                 .role(UserRole.USER)
                 .build();
 
@@ -43,7 +43,7 @@ public class AuthService {
         UserEntity user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다."));
 
-        if (!passwordEncoder.matches(request.getPw(), user.getPw())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("비밀번호가 일치하디 않습니다.");
         }
 

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+
 public class BlogRequest {
 
     private String title;
