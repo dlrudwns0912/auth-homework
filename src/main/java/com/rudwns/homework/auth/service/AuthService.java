@@ -44,7 +44,7 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다."));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("비밀번호가 일치하디 않습니다.");
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
 
         String token = jwtProvider.createToken(user.getEmail());
