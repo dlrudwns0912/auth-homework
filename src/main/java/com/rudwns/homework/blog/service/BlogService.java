@@ -17,8 +17,8 @@ public class BlogService {
     private final BlogRepository blogRepository;
 
     @Transactional
-    public BlogResponse createBlog(BlogRequest req, String email) {
-        BlogEntity blog = new BlogEntity(req.getTitle(), req.getContent(), email);
+    public BlogResponse createBlog(BlogRequest request, String email) {
+        BlogEntity blog = new BlogEntity(request.getTitle(), request.getContent(), email);
         return new BlogResponse(blogRepository.save(blog));
     }
 
