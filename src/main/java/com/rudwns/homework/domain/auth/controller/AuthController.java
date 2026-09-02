@@ -24,5 +24,4 @@ public class AuthController {
     public TokenResponse login(@RequestBody LoginRequest request) {
         return authService.login(request);
     }
-
 }

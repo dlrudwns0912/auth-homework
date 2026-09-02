@@ -3,10 +3,14 @@ package com.rudwns.homework.domain.blog.controller;
 import com.rudwns.homework.domain.blog.dto.request.BlogRequest;
 import com.rudwns.homework.domain.blog.dto.response.BlogResponse;
 import com.rudwns.homework.domain.blog.service.BlogService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -16,32 +20,42 @@ public class BlogController {
     private final BlogService blogService;
 
     @PostMapping
-    public BlogResponse createBlog(@RequestBody BlogRequest req, Authentication auth) {
-        return blogService.createBlog(req, auth.getName());
-    }
+    public ResponseEntity<BlogResponse> create(
+            @Valid @RequestBody BlogRequest blogRequest,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        BlogResponse blogResponse = blogService.createBlog(blogRequest, userDetails.getUsername());
+        return ResponseEntity.status(HttpStatus.CREATED).body(blogResponse);
+    };
 
     @GetMapping
-    public List<BlogResponse> getAllBlogs() {
-        return blogService.getAllBlogs();
+    public ResponseEntity<List<BlogResponse>> getAllBlogs() {
+        List<BlogResponse> responses = blogService.getAllBlogs();
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
-    public BlogResponse getBlog(@PathVariable Long id) {
-        return blogService.getBlog(id);
+    public ResponseEntity<BlogResponse> getBlog(@PathVariable Long id) {
+        BlogResponse response = blogService.getBlog(id);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public BlogResponse updateBlog(
+    public ResponseEntity<BlogResponse> updateBlog(
             @PathVariable Long id,
-            @RequestBody BlogRequest req,
-            Authentication auth
+            @RequestBody BlogRequest request,
+            @AuthenticationPrincipal UserDetails userDetails
     ) {
-        return blogService.updateBlog(id, req, auth.getName());
+        BlogResponse response = blogService.updateBlog(id, request, userDetails.getUsername());
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBlog(@PathVariable Long id, Authentication auth) {
-        blogService.deleteBlog(id, auth.getName());
-        return "게시글이 삭제되었습니다.";
+    public ResponseEntity<Void> deleteBlog(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        blogService.deleteBlog(id, userDetails.getUsername());
+        return ResponseEntity.noContent().build();
     }
 }
