@@ -1,4 +1,4 @@
-package com.rudwns.homework.global.config;
+package com.rudwns.homework.global.security;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
