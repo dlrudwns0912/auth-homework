@@ -22,14 +22,12 @@ public class BlogService {
         return new BlogResponse(blogRepository.save(blog));
     }
 
-    @Transactional(readOnly = true)
     public List<BlogResponse> getAllBlogs() {
         return blogRepository.findAll().stream()
                 .map(BlogResponse::new)
                 .toList();
     }
 
-    @Transactional(readOnly = true)
     public BlogResponse getBlog(Long id) {
         BlogEntity blog = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
@@ -37,7 +35,7 @@ public class BlogService {
     }
 
     @Transactional
-    public BlogResponse updateBlog(Long id, BlogRequest req, String email) {
+    public BlogResponse updateBlog(Long id, BlogRequest request, String email) {
         BlogEntity blog = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
@@ -45,7 +43,7 @@ public class BlogService {
             throw new IllegalArgumentException("수정 권한이 없습니다.");
         }
 
-        blog.update(req.getTitle(), req.getContent());
+        blog.update(request.getTitle(), request.getContent());
         return new BlogResponse(blog);
     }
 

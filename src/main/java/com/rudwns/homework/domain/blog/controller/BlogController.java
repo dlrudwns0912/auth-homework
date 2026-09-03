@@ -4,10 +4,10 @@ import com.rudwns.homework.domain.blog.dto.request.BlogRequest;
 import com.rudwns.homework.domain.blog.dto.response.BlogResponse;
 import com.rudwns.homework.domain.blog.service.BlogService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,9 @@ public class BlogController {
     @PostMapping
     public ResponseEntity<BlogResponse> create(
             @Valid @RequestBody BlogRequest blogRequest,
-            @AuthenticationPrincipal UserDetails userDetails
+            @AuthenticationPrincipal String email
     ) {
-        BlogResponse blogResponse = blogService.createBlog(blogRequest, userDetails.getUsername());
+        BlogResponse blogResponse = blogService.createBlog(blogRequest, email);
         return ResponseEntity.status(HttpStatus.CREATED).body(blogResponse);
     };
 
@@ -44,18 +44,18 @@ public class BlogController {
     public ResponseEntity<BlogResponse> updateBlog(
             @PathVariable Long id,
             @RequestBody BlogRequest request,
-            @AuthenticationPrincipal UserDetails userDetails
+            @AuthenticationPrincipal String email
     ) {
-        BlogResponse response = blogService.updateBlog(id, request, userDetails.getUsername());
+        BlogResponse response = blogService.updateBlog(id, request, email);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBlog(
             @PathVariable Long id,
-            @AuthenticationPrincipal UserDetails userDetails
+            @AuthenticationPrincipal String email
     ) {
-        blogService.deleteBlog(id, userDetails.getUsername());
+        blogService.deleteBlog(id, email);
         return ResponseEntity.noContent().build();
     }
 }

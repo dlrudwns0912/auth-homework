@@ -16,7 +16,7 @@ public class SignupResponse {
     private String nickname;
     private UserRole role;
 
-    public static SignupResponse from(UserEntity savedUser) {
+    public static SignupResponse from(UserEntity user) {
         return SignupResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())

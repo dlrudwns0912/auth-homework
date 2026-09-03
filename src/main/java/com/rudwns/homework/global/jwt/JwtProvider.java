@@ -2,6 +2,8 @@ package com.rudwns.homework.global.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -11,24 +13,31 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    private final String SECRET_KEY = "simple-jwt-secret-key-for-beginner-homework";
-    private final long EXPIRATION = 360000;
+    @Value("${jwt.secret}")
+    private String secretKeyValue;
 
-    private SecretKey getKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+    @Value("${jwt.secret}")
+    private long expiration;
+
+    private SecretKey secretKey;
+
+
+    @PostConstruct
+    public void init() {
+        this.secretKey = Keys.hmacShaKeyFor(secretKeyValue.getBytes(StandardCharsets.UTF_8));
     }
 
     public String createToken(String email) {
         return Jwts.builder()
                 .subject(email)
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(getKey())
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(secretKey)
                 .compact();
     }
 
     public String getEmail(String token) {
         return Jwts.parser()
-                .verifyWith(getKey())
+                .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()

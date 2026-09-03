@@ -1,4 +1,4 @@
-package com.rudwns.homework.global.config;
+package com.rudwns.homework.global.security;
 
 import com.rudwns.homework.global.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,11 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    private static final String[] SWAGGER_WHITELIST = {
+            "/swagger-ui/**",
+            "/v3/api-docs/**"
+    };
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -30,12 +35,12 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
-                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+                .headers(headers -> headers.frameOptions(frame -> frame.deny()))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/error")
+                        .requestMatchers("/api/auth/signup", "/api/auth/login", "/error")
 
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/blogs/**").permitAll()
