@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DB_URL:jdbc:mysql://localhost:3306/My_DB?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true}
     username: ${DB_USERNAME:lkj0912}
-    password: ${DB_PASSWORD:jun100912*}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
@@ -15,5 +15,5 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
 jwt:
-  secret: ${JWT_SECRET:mysecretkeymysecretkeymysecretkey1234567890}
+  secret: ${JWT_SECRET}
   expiration: 3600000
