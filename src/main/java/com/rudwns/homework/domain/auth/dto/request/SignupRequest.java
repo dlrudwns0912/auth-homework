@@ -14,7 +14,7 @@ public class SignupRequest {
     @Email(message = "올바른 이메일이 아닙니다.")
     private String email;
 
-    @NotBlank(message = "비밀번호 작성은 필수입니다.")
+    @NotBlank(message = "비밀번호는 8자 이상이어야 합니다.")
     private String password;
 
     @NotBlank(message = "닉네임 작성은 필수입니다.")
