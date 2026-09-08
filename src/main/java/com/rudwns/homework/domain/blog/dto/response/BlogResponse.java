@@ -4,6 +4,7 @@ import com.rudwns.homework.domain.blog.entity.BlogEntity;
 import lombok.Getter;
 
 @Getter
+
 public class BlogResponse {
 
     private Long id;

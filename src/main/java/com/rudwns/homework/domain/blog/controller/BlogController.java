@@ -4,12 +4,10 @@ import com.rudwns.homework.domain.blog.dto.request.BlogRequest;
 import com.rudwns.homework.domain.blog.dto.response.BlogResponse;
 import com.rudwns.homework.domain.blog.service.BlogService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
