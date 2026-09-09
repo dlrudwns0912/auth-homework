@@ -21,7 +21,6 @@ public class JwtProvider {
 
     private SecretKey secretKey;
 
-
     @PostConstruct
     public void init() {
         this.secretKey = Keys.hmacShaKeyFor(secretKeyValue.getBytes(StandardCharsets.UTF_8));
